@@ -152,9 +152,7 @@ class PlanExecutor:
         """
         self._require(step_id)
         dependents = [
-            s.step_id
-            for s in self._steps.values()
-            if step_id in s.depends_on
+            s.step_id for s in self._steps.values() if step_id in s.depends_on
         ]
         if dependents:
             raise ValueError(
@@ -209,9 +207,7 @@ class PlanExecutor:
         """
         if self.is_complete():
             return False
-        running = any(
-            s.status == PlanStepStatus.RUNNING for s in self._steps.values()
-        )
+        running = any(s.status == PlanStepStatus.RUNNING for s in self._steps.values())
         if running:
             return False
         return len(self.ready_steps()) == 0
